@@ -95,4 +95,10 @@ async def analyze_forensic_patterns(extracted_data: JobExtraction) -> List[Foren
     valid_pattern_ids = {item["pattern_id"] for item in corporate_speak_data}
     filtered_flags = [f for f in flags if f.pattern_id in valid_pattern_ids]
 
-    return filtered_flags
+    # Deduplicate flags by pattern_id, keeping the one with the highest confidence
+    deduped_flags = {}
+    for f in filtered_flags:
+        if f.pattern_id not in deduped_flags or f.confidence > deduped_flags[f.pattern_id].confidence:
+            deduped_flags[f.pattern_id] = f
+
+    return list(deduped_flags.values())

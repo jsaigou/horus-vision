@@ -65,11 +65,13 @@ async def decode_corporate_speak(job_text: str) -> List[CorporateSpeakMatch]:
 
     # Validate risks verbatim against the library to prevent hallucinated risk text
     pattern_to_risk = {item["pattern"]: item["risk"] for item in corporate_speak_data}
-    valid_matches = []
+    deduped_matches = {}
     for match in matches:
         if match.pattern in pattern_to_risk:
             # Enforce verbatim risk text from the library
             match.risk = pattern_to_risk[match.pattern]
-            valid_matches.append(match)
+            # Deduplicate by pattern, keeping the first occurrence
+            if match.pattern not in deduped_matches:
+                deduped_matches[match.pattern] = match
 
-    return valid_matches
+    return list(deduped_matches.values())
