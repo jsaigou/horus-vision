@@ -146,6 +146,21 @@ async def analyze_job(
         medical_hours_daily=0.0 # default medical time cost
     )
 
+    effective_wage_max = None
+    if extracted.salary_annual_max is not None:
+        effective_wage_max = calculate_effective_salary(
+            salary_annual=extracted.salary_annual_max,
+            working_days_annual=extracted.working_days_annual,
+            benefits_monetary_daily=extracted.benefits_monetary_daily,
+            travel_cost_daily=extracted.travel_cost_daily,
+            medical_cost_daily=extracted.travel_cost_daily,
+            hours_contracted_daily=extracted.hours_contracted_daily,
+            commute_time_am_hours=extracted.commute_time_am_hours,
+            commute_time_pm_hours=extracted.commute_time_pm_hours,
+            overtime_hours_daily=extracted.overtime_hours_daily,
+            medical_hours_daily=0.0
+        )
+
     discretionary_hours = calculate_discretionary_hours(
         hours_contracted_daily=extracted.hours_contracted_daily,
         commute_time_am_hours=extracted.commute_time_am_hours,
@@ -167,9 +182,11 @@ async def analyze_job(
         "company_name": extracted.company_name,
         "role_title": extracted.role_title,
         "salary_stated_annual": extracted.salary_annual,
+        "salary_stated_annual_max": extracted.salary_annual_max,
         "salary_currency": extracted.salary_currency or "USD",
         "salary_is_market_rate": extracted.salary_is_market_rate,
         "salary_effective_hourly": effective_wage,
+        "salary_effective_hourly_max": effective_wage_max,
         "life_discretionary_hours": discretionary_hours,
         "burnout_triggered": burnout_triggered,
         "ethical_status": ethical_status,
@@ -213,6 +230,7 @@ async def analyze_manual_salary(
     company_name: Optional[str] = Form(None),
     role_title: Optional[str] = Form(None),
     salary_annual: float = Form(...),
+    salary_annual_max: Optional[float] = Form(None),
     salary_currency: str = Form("USD"),
     hours_contracted_daily: float = Form(8.0),
     is_space_deeptech: bool = Form(False)
@@ -223,6 +241,7 @@ async def analyze_manual_salary(
         company_name=company_name,
         role_title=role_title,
         salary_annual=salary_annual,
+        salary_annual_max=salary_annual_max,
         salary_currency=salary_currency,
         hours_contracted_daily=hours_contracted_daily,
         is_space_deeptech=is_space_deeptech,
@@ -273,6 +292,21 @@ async def analyze_job_with_extracted(request: Request, extracted: JobExtraction,
         medical_hours_daily=0.0
     )
 
+    effective_wage_max = None
+    if extracted.salary_annual_max is not None:
+        effective_wage_max = calculate_effective_salary(
+            salary_annual=extracted.salary_annual_max,
+            working_days_annual=extracted.working_days_annual,
+            benefits_monetary_daily=extracted.benefits_monetary_daily,
+            travel_cost_daily=extracted.travel_cost_daily,
+            medical_cost_daily=0.0,
+            hours_contracted_daily=extracted.hours_contracted_daily,
+            commute_time_am_hours=extracted.commute_time_am_hours,
+            commute_time_pm_hours=extracted.commute_time_pm_hours,
+            overtime_hours_daily=extracted.overtime_hours_daily,
+            medical_hours_daily=0.0
+        )
+
     discretionary_hours = calculate_discretionary_hours(
         hours_contracted_daily=extracted.hours_contracted_daily,
         commute_time_am_hours=extracted.commute_time_am_hours,
@@ -290,9 +324,11 @@ async def analyze_job_with_extracted(request: Request, extracted: JobExtraction,
         "company_name": extracted.company_name,
         "role_title": extracted.role_title,
         "salary_stated_annual": extracted.salary_annual,
+        "salary_stated_annual_max": extracted.salary_annual_max,
         "salary_currency": extracted.salary_currency or "USD",
         "salary_is_market_rate": extracted.salary_is_market_rate,
         "salary_effective_hourly": effective_wage,
+        "salary_effective_hourly_max": effective_wage_max,
         "life_discretionary_hours": discretionary_hours,
         "burnout_triggered": burnout_triggered,
         "ethical_status": ethical_status,

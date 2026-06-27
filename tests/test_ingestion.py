@@ -26,6 +26,17 @@ def test_job_extraction_model_validation():
     assert len(extraction.raw_skills_list) == 2
 
 
+def test_job_extraction_model_salary_range():
+    extraction = JobExtraction(
+        company_name="Range Company",
+        salary_annual=96442.50,
+        salary_annual_max=163680.00,
+        salary_currency="USD"
+    )
+    assert extraction.salary_annual == 96442.50
+    assert extraction.salary_annual_max == 163680.00
+
+
 def test_forensic_flag_model():
     flag = ForensicFlag(
         pattern_id="unlimited_pto",

@@ -57,7 +57,11 @@
                 
                 <div class="flex items-baseline gap-1 mt-1">
                     <span class="text-4xl font-display font-bold text-on-surface">
-                        {{ "{:,.2f}".format(pipeline_data.salary_effective_hourly) }}
+                        {% if pipeline_data.salary_effective_hourly_max %}
+                            {{ "{:,.2f}".format(pipeline_data.salary_effective_hourly) }} - {{ "{:,.2f}".format(pipeline_data.salary_effective_hourly_max) }}
+                        {% else %}
+                            {{ "{:,.2f}".format(pipeline_data.salary_effective_hourly) }}
+                        {% endif %}
                     </span>
                     <span class="text-xs font-bold text-on-surface-variant">
                         {{ pipeline_data.salary_currency }}/hr
@@ -73,13 +77,25 @@
                             {% if pipeline_data.salary_is_market_rate %}
                                 <span class="text-amber-600 font-bold" title="Estimated via online search (No salary in job description)">⚠️</span>
                             {% endif %}
-                            {{ "{:,.0f}".format(pipeline_data.salary_stated_annual) }} {{ pipeline_data.salary_currency }}/yr
+                            {% if pipeline_data.salary_stated_annual_max %}
+                                {{ "{:,.0f}".format(pipeline_data.salary_stated_annual) }} - {{ "{:,.0f}".format(pipeline_data.salary_stated_annual_max) }} {{ pipeline_data.salary_currency }}/yr
+                            {% else %}
+                                {{ "{:,.0f}".format(pipeline_data.salary_stated_annual) }} {{ pipeline_data.salary_currency }}/yr
+                            {% endif %}
                         </span>
                     </div>
                     <!-- Bar Comparison -->
                     <div class="w-full bg-surface-container rounded-full h-2.5 overflow-hidden border border-outline-variant/40">
-                        {% set initial_hourly = (pipeline_data.salary_stated_annual / (extracted_raw.working_days_annual or 240)) / (extracted_raw.hours_contracted_daily or 8.0) %}
-                        {% set ratio = (pipeline_data.salary_effective_hourly / initial_hourly) * 100 %}
+                        {% set base_val = pipeline_data.salary_stated_annual %}
+                        {% set effective_val = pipeline_data.salary_effective_hourly %}
+                        {% if pipeline_data.salary_stated_annual_max %}
+                            {% set base_val = (pipeline_data.salary_stated_annual + pipeline_data.salary_stated_annual_max) / 2 %}
+                        {% endif %}
+                        {% if pipeline_data.salary_effective_hourly_max %}
+                            {% set effective_val = (pipeline_data.salary_effective_hourly + pipeline_data.salary_effective_hourly_max) / 2 %}
+                        {% endif %}
+                        {% set initial_hourly = (base_val / (extracted_raw.working_days_annual or 240)) / (extracted_raw.hours_contracted_daily or 8.0) %}
+                        {% set ratio = (effective_val / initial_hourly) * 100 %}
                         {% if ratio > 100 %}{% set ratio = 100 %}{% endif %}
                         <div class="bg-primary h-full rounded-full transition-all" style="width: {{ ratio }}%;"></div>
                     </div>
