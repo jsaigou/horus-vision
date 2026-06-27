@@ -1,0 +1,287 @@
+<!-- Horus Vision Evaluation Intelligence Report Panel -->
+<div class="flex flex-col gap-6 animate-fade-in transition-all duration-500 font-body">
+    
+    <!-- HEADER SUMMARY CARD -->
+    <div class="border border-outline bg-surface-container-low rounded p-6 relative overflow-hidden">
+        <div class="absolute -right-20 -top-20 w-44 h-44 rounded-full bg-primary/5 blur-3xl pointer-events-none"></div>
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-[10px] font-bold tracking-widest uppercase bg-surface-container-high text-on-surface-variant border border-outline-variant/60">
+                    📂 Analysis Complete
+                </span>
+                <h2 class="font-display font-bold text-2xl text-on-surface mt-2 tracking-tight">
+                    {{ pipeline_data.role_title or "Unknown Role" }}
+                </h2>
+                <p class="text-sm text-on-surface-variant mt-1 flex items-center gap-1.5">
+                    🏢 <span class="text-on-surface font-medium">{{ pipeline_data.company_name or "Unknown Company" }}</span>
+                </p>
+            </div>
+            
+            <!-- Overall Assessment Badge -->
+            <div class="flex-shrink-0">
+                {% if pipeline_data.burnout_triggered %}
+                    <div class="bg-error-container/20 border border-error rounded p-4 text-center">
+                        <span class="text-2xl">⚠️</span>
+                        <div class="text-xs font-bold text-error uppercase tracking-wider mt-1">HIGH BURNOUT VULNERABILITY</div>
+                        <div class="text-[10px] text-error/80 mt-0.5">Discretionary life hours are depleted</div>
+                    </div>
+                {% else %}
+                    <div class="bg-primary/5 border border-primary rounded p-4 text-center">
+                        <span class="text-2xl">👁️‍🗨️</span>
+                        <div class="text-xs font-bold text-primary uppercase tracking-wider mt-1">SUSTAINABLE MARGIN</div>
+                        <div class="text-[10px] text-primary/80 mt-0.5">Preserves essential discretionary life</div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Synthesis Summary Block -->
+        <div class="border-t border-outline-variant/40 mt-5 pt-4">
+            <h3 class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-2 font-display">🕵️ Executive Audit Synthesis</h3>
+            <p class="text-sm text-on-surface-variant leading-relaxed italic">
+                "{{ report.summary }}"
+            </p>
+        </div>
+    </div>
+
+    <!-- CORE METRICS DUAL GAUGES -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- 1. Compensation Erosion Gauge -->
+        <div class="bg-surface border border-outline rounded p-5 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">💵 Asymmetric Compensation Erosion</h3>
+                    <span class="text-[10px] font-bold text-on-surface-variant/60 font-mono">Pure Python Math</span>
+                </div>
+                
+                <div class="flex items-baseline gap-1 mt-1">
+                    <span class="text-4xl font-display font-bold text-on-surface">
+                        {{ "{:,.2f}".format(pipeline_data.salary_effective_hourly) }}
+                    </span>
+                    <span class="text-xs font-bold text-on-surface-variant">
+                        {{ pipeline_data.salary_currency }}/hr
+                    </span>
+                </div>
+                <div class="text-[11px] text-on-surface-variant/80 mt-0.5">Calculated Effective Hourly Wage (vs. contract wage)</div>
+
+                <!-- Stated vs Effective visual slider bar -->
+                <div class="mt-6 flex flex-col gap-2">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-on-surface-variant/60">Unamortized Base Equivalent</span>
+                        <span class="text-on-surface font-semibold flex items-center gap-1">
+                            {% if pipeline_data.salary_is_market_rate %}
+                                <span class="text-amber-600 font-bold" title="Estimated via online search (No salary in job description)">⚠️</span>
+                            {% endif %}
+                            {{ "{:,.0f}".format(pipeline_data.salary_stated_annual) }} {{ pipeline_data.salary_currency }}/yr
+                        </span>
+                    </div>
+                    <!-- Bar Comparison -->
+                    <div class="w-full bg-surface-container rounded-full h-2.5 overflow-hidden border border-outline-variant/40">
+                        {% set initial_hourly = (pipeline_data.salary_stated_annual / (extracted_raw.working_days_annual or 240)) / (extracted_raw.hours_contracted_daily or 8.0) %}
+                        {% set ratio = (pipeline_data.salary_effective_hourly / initial_hourly) * 100 %}
+                        {% if ratio > 100 %}{% set ratio = 100 %}{% endif %}
+                        <div class="bg-primary h-full rounded-full transition-all" style="width: {{ ratio }}%;"></div>
+                    </div>
+                    <div class="flex justify-between text-[10px] text-on-surface-variant/60 mt-1">
+                        <span>Comp retained: <strong>{{ "%.1f"|format(ratio) }}%</strong></span>
+                        <span>Commute/overtime eroded: <strong>{{ "%.1f"|format(100 - ratio) }}%</strong></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-outline-variant/40 mt-5 pt-3">
+                <h4 class="text-xs font-bold text-on-surface font-display">Compensation Audit Impact</h4>
+                <p class="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                    {{ report.wage_narrative }}
+                </p>
+            </div>
+        </div>
+
+        <!-- 2. Discretionary Life Remaining Ring -->
+        <div class="bg-surface border {% if pipeline_data.burnout_triggered %}border-error/60 bg-error-container/5{% else %}border-outline{% endif %} rounded p-5 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">⏳ Daily Discretionary Life</h3>
+                    {% if pipeline_data.burnout_triggered %}
+                        <span class="inline-flex px-1.5 py-0.5 rounded text-[9px] font-bold bg-error-container text-on-error-container border border-error/30">CRITICAL BURNOUT</span>
+                    {% else %}
+                        <span class="inline-flex px-1.5 py-0.5 rounded text-[9px] font-bold bg-primary/10 text-primary border border-primary/30">STABLE</span>
+                    {% endif %}
+                </div>
+
+                <div class="flex items-baseline gap-1 mt-1">
+                    <span class="text-4xl font-display font-bold {% if pipeline_data.burnout_triggered %}text-error{% else %}text-primary{% endif %}">
+                        {{ "%.2f"|format(pipeline_data.life_discretionary_hours) }}
+                    </span>
+                    <span class="text-xs font-bold text-on-surface-variant">hours/day</span>
+                </div>
+                <div class="text-[11px] text-on-surface-variant/80 mt-0.5">Remaining discretionary awake hours left for you</div>
+
+                <!-- Custom life layout segments -->
+                <div class="mt-6 space-y-1.5">
+                    <div class="flex justify-between text-xs text-on-surface-variant/60">
+                        <span>Work & Overtime:</span>
+                        <span class="text-on-surface font-semibold font-mono">{{ "%.1f"|format(pipeline_data.math_inputs.hours_contracted_daily + pipeline_data.math_inputs.overtime_hours_daily) }} hrs</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-on-surface-variant/60">
+                        <span>Commute Transit:</span>
+                        <span class="text-on-surface font-semibold font-mono">{{ "%.1f"|format(pipeline_data.math_inputs.commute_am_hours + pipeline_data.math_inputs.commute_pm_hours) }} hrs</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-on-surface-variant/60">
+                        <span>Decompression amort:</span>
+                        <span class="text-on-surface font-semibold font-mono">{{ "%.1f"|format(pipeline_data.math_inputs.decompress_hours) }} hrs</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-outline-variant/40 mt-5 pt-3">
+                <h4 class="text-xs font-bold {% if pipeline_data.burnout_triggered %}text-error font-display{% else %}text-on-surface font-display{% endif %}">Discretionary Margin Assessment</h4>
+                <p class="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                    {{ report.life_narrative }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUDIT RED FLAGS & PATTERN MATCHES -->
+    <div class="bg-surface border border-outline rounded p-6">
+        <h3 class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-4 flex items-center gap-2 font-display">
+            🚨 Audit Red Flags & Contract Anti-Patterns
+        </h3>
+        
+        {% if not pipeline_data.forensic_flags and not pipeline_data.corporate_speak_matches %}
+            <div class="text-center py-6 text-on-surface-variant/60 text-xs">
+                ✨ No high-confidence contract manipulation or corporate-speak patterns detected.
+            </div>
+        {% else %}
+            <div class="flex flex-col gap-4">
+                <!-- LLM Compliance Agent Flags -->
+                {% for flag in pipeline_data.forensic_flags %}
+                    <div class="flex items-start gap-4 p-4 rounded bg-surface-container-low border border-outline-variant/60 hover:bg-surface-container transition-colors">
+                        <div class="w-8 h-8 flex-shrink-0 rounded bg-error-container/30 border border-error/30 text-error flex items-center justify-center text-sm">
+                            ⚠️
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-on-surface capitalize">{{ flag.pattern_id.replace('_', ' ') }}</span>
+                                <span class="text-[10px] font-bold text-error bg-error-container/20 border border-error/30 rounded px-1.5 py-0.5 font-mono">
+                                    {{ flag.confidence }}% Confidence
+                                </span>
+                            </div>
+                            <p class="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                                <strong>Detected Sign:</strong> Identified structural JD manipulation.
+                            </p>
+                            {% if flag.evidence %}
+                                <div class="mt-2 text-[10px] bg-surface border border-outline-variant/60 p-2 rounded font-mono text-on-surface-variant/80 overflow-x-auto">
+                                    "{{ flag.evidence }}"
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <!-- YAML Static Corporate Speak Decoder Matches -->
+                {% for match in pipeline_data.corporate_speak_matches %}
+                    <div class="flex items-start gap-4 p-4 rounded bg-surface-container-low border border-outline-variant/60 hover:bg-surface-container transition-colors">
+                        <div class="w-8 h-8 flex-shrink-0 rounded bg-primary/10 border border-primary/20 text-primary flex items-center justify-center text-sm">
+                            📝
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-on-surface">Corporate Jargon: <span class="text-primary italic">"{{ match.pattern }}"</span></span>
+                                <span class="text-[9px] font-bold text-on-surface-variant/60 uppercase tracking-widest font-mono">Translator Match</span>
+                            </div>
+                            <p class="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                                <strong class="text-error">Decoded Risk:</strong> {{ match.risk }}
+                            </p>
+                            <div class="mt-1 text-[10px] text-on-surface-variant/50 font-mono">
+                                Exact match in text: "{{ match.matched_text }}"
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- OSINT LIVE GROUNDING CARD -->
+    <div class="bg-surface border border-outline rounded p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xs font-bold text-on-surface-variant uppercase tracking-wider flex items-center gap-2 font-display">
+                🌐 Live OSINT & Corporate Reputation Grounding
+            </h3>
+            <span class="inline-flex items-center gap-1.5 text-[9px] font-bold text-primary uppercase bg-primary/10 border border-primary/30 px-2 py-0.5 rounded">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                Google Search Connected
+            </span>
+        </div>
+        
+        <p class="text-xs text-on-surface-variant leading-relaxed mb-4">
+            {{ report.osint_summary }}
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+            {% for finding in pipeline_data.osint_findings %}
+                <div class="flex flex-col gap-2 p-4 rounded border border-outline-variant bg-surface-container-low relative group hover:border-primary/50 transition-colors">
+                    <!-- Subtle rating badge -->
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] font-bold tracking-widest text-on-surface-variant/60 uppercase">
+                            {% if finding.query_id == "founded_profitability" %}🏢 Profitability & Structure
+                            {% elif finding.query_id == "labor_violations" %}⚖️ Labor & Legal Audits
+                            {% else %}📊 Market Competitiveness{% endif %}
+                        </span>
+                        
+                        <span class="text-[8px] font-bold tracking-wider uppercase px-1.5 py-0.5 rounded bg-surface text-on-surface-variant border border-outline-variant/40 font-mono">
+                            Uncertainty: {{ finding.uncertainty_rating }}
+                        </span>
+                    </div>
+
+                    <p class="text-[11px] text-on-surface-variant leading-relaxed">
+                        {{ finding.finding }}
+                    </p>
+
+                    <!-- Alert Indicator if flagged -->
+                    {% if finding.flag %}
+                        <div class="mt-1 inline-flex items-center gap-1.5 px-2 py-1 bg-error-container/20 border border-error/30 rounded text-[9px] text-error font-bold font-mono">
+                            ⚠️ TRAP FLAGGED: {{ finding.flag }}
+                        </div>
+                    {% endif %}
+
+                    <!-- Source Link -->
+                    {% if finding.source_url %}
+                        <a href="{{ finding.source_url }}" target="_blank" class="text-[10px] text-primary hover:text-primary/80 mt-2 hover:underline inline-flex items-center gap-1 w-fit">
+                            <span>Read citation source</span>
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- RE-AUDIT ACTION BAR -->
+    <div class="flex justify-end gap-3 mt-2">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-surface-container-high hover:bg-surface-container-highest text-on-surface border border-outline-variant font-semibold rounded text-xs py-3 px-5 transition-colors">
+            Scroll to Top
+        </button>
+        <button onclick="document.getElementById('analysis-form').reset(); document.getElementById('results-panel').innerHTML = document.getElementById('results-placeholder-source').innerHTML" class="bg-on-surface hover:bg-on-surface/90 text-surface font-semibold rounded text-xs py-3 px-5 transition-colors">
+            Clear Results & Input
+        </button>
+    </div>
+
+</div>
+
+<!-- Hidden fallback/reset template source container -->
+<div id="results-placeholder-source" class="hidden">
+    <div class="border border-outline-variant bg-surface-container-low rounded p-8 flex flex-col items-center justify-center text-center my-auto min-h-[500px] relative overflow-hidden group">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5 pointer-events-none"></div>
+        <div class="w-16 h-16 rounded border border-outline-variant flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform duration-300 bg-surface">
+            👁️‍_
+        </div>
+        <h3 class="font-display font-semibold text-lg text-on-surface">Awaiting Offer Ingestion</h3>
+        <p class="text-xs text-on-surface-variant mt-2 max-w-sm leading-relaxed mx-auto">
+            Submit a job listing or contract using the console. The system will trigger multi-modal data extraction, ethical policy scans, asymmetric calculations, and OSINT threat searches.
+        </p>
+    </div>
+</div>

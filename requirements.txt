@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+jinja2
+python-multipart
+rapidfuzz
+pyyaml
+google-genai
+pytest
+pytest-asyncio
+pydantic

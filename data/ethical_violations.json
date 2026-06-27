@@ -1,0 +1,7 @@
+{
+  "autonomous_weapons": ["Palantir", "Anduril", "Shield AI"],
+  "tobacco": ["Philip Morris", "BAT", "Japan Tobacco"],
+  "human_exploitation": ["court-documented entities"],
+  "mlm": ["Herbalife", "Amway"],
+  "opioid_contributors": ["Purdue Pharma", "McKinsey (pharma division)"]
+}

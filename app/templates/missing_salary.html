@@ -1,0 +1,95 @@
+<div class="border border-outline bg-surface rounded p-6 relative overflow-hidden animate-fade-in font-body">
+    <div class="absolute -right-20 -top-20 w-44 h-44 rounded-full bg-primary/5 blur-3xl pointer-events-none"></div>
+
+    <div class="flex items-center gap-3 mb-5 border-b border-outline-variant/40 pb-4">
+        <div class="w-10 h-10 rounded bg-primary/10 border border-primary/20 flex items-center justify-center text-lg">
+            💰
+        </div>
+        <div>
+            <h3 class="font-display font-bold text-base text-on-surface">Compensation Data Missing</h3>
+            <p class="text-xs text-primary font-medium">Stage 1 Extractor cannot find annual salary parameters</p>
+        </div>
+    </div>
+
+    <p class="text-xs text-on-surface-variant leading-relaxed mb-6">
+        The AI analyzed your document but did not detect a clear numeric salary figure. To run the math engine and complete the evaluation report, please specify manual parameters below:
+    </p>
+
+    <!-- Form POSTs to analyze-manual-salary targeting this same results-panel -->
+    <form hx-post="/analyze-manual-salary"
+          hx-target="#results-panel"
+          hx-swap="innerHTML"
+          hx-indicator="#loading-indicator"
+          class="flex flex-col gap-4">
+
+        <!-- Hidden items to preserve context -->
+        <input type="hidden" name="job_text" value="{{ job_text or '' }}">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Company (Pre-extracted if possible) -->
+            <div class="flex flex-col gap-1">
+                <label class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-wider">Company Name</label>
+                <input type="text" name="company_name" value="{{ extracted_data.company_name or '' }}" required
+                       class="bg-transparent border-0 border-b border-outline-variant focus:border-primary focus:ring-0 rounded-none px-0 py-2 text-sm text-on-surface placeholder-on-surface-variant/40 transition-all">
+            </div>
+
+            <!-- Role (Pre-extracted if possible) -->
+            <div class="flex flex-col gap-1">
+                <label class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-wider">Role Title</label>
+                <input type="text" name="role_title" value="{{ extracted_data.role_title or '' }}" required
+                       class="bg-transparent border-0 border-b border-outline-variant focus:border-primary focus:ring-0 rounded-none px-0 py-2 text-sm text-on-surface placeholder-on-surface-variant/40 transition-all">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-1">
+            <!-- Stated Annual Salary -->
+            <div class="flex flex-col gap-1">
+                <label class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-wider">Annual Salary (Gross)</label>
+                <input type="number" step="any" name="salary_annual" placeholder="e.g. 80000" required
+                       class="bg-transparent border-0 border-b border-outline-variant focus:border-primary focus:ring-0 rounded-none px-0 py-2 text-sm text-on-surface placeholder-on-surface-variant/40 transition-all">
+            </div>
+
+            <!-- Currency -->
+            <div class="flex flex-col gap-1">
+                <label class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-wider">Salary Currency</label>
+                <select name="salary_currency"
+                        class="bg-transparent border-0 border-b border-outline-variant focus:border-primary focus:ring-0 rounded-none px-0 py-2 text-sm text-on-surface cursor-pointer">
+                    <option value="USD">USD ($)</option>
+                    <option value="JPY">JPY (¥)</option>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="GBP">GBP (£)</option>
+                    <option value="AUD">AUD ($)</option>
+                </select>
+            </div>
+
+            <!-- Contracted Daily Hours -->
+            <div class="flex flex-col gap-1">
+                <label class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-wider">Contract Daily Hours</label>
+                <input type="number" step="0.5" name="hours_contracted_daily" value="8.0" required
+                       class="bg-transparent border-0 border-b border-outline-variant focus:border-primary focus:ring-0 rounded-none px-0 py-2 text-sm text-on-surface transition-all">
+            </div>
+        </div>
+
+        <!-- Aerospace / Deep-Tech Multiplier checkbox -->
+        <div class="flex items-center gap-3 mt-4 bg-surface-container-low border border-outline-variant rounded p-4">
+            <input type="checkbox" id="is_space_deeptech" name="is_space_deeptech" value="true"
+                   class="w-4.5 h-4.5 rounded bg-surface border-outline-variant text-primary focus:ring-primary/30">
+            <div class="flex flex-col">
+                <label for="is_space_deeptech" class="text-xs font-bold text-on-surface cursor-pointer">Aerospace / Deep-Tech Role</label>
+                <span class="text-[10px] text-on-surface-variant/70">Applies a 1.5× decompression multiplier buffer to remaining discretionary calculations.</span>
+            </div>
+        </div>
+
+        <!-- Submission and cancel action buttons -->
+        <div class="flex justify-end gap-3 mt-6 border-t border-outline-variant/40 pt-4">
+            <button type="button" onclick="document.getElementById('analysis-form').reset(); document.getElementById('results-panel').innerHTML = document.getElementById('results-placeholder-source').innerHTML"
+                    class="bg-surface-container-high hover:bg-surface-container-highest text-on-surface border border-outline-variant font-semibold rounded text-xs py-3 px-5 transition-colors">
+                Cancel
+            </button>
+            <button type="submit"
+                    class="bg-on-surface hover:bg-on-surface/90 text-surface font-semibold rounded text-xs py-3 px-6 transition-colors flex items-center gap-1.5">
+                📥 Inject Parameters & Recalculate
+            </button>
+        </div>
+    </form>
+</div>

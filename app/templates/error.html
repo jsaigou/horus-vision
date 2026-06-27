@@ -1,0 +1,22 @@
+<div class="border border-error bg-error-container/5 rounded p-8 flex flex-col items-center justify-center text-center my-auto min-h-[500px] relative overflow-hidden animate-fade-in font-body">
+    <div class="absolute -right-20 -top-20 w-44 h-44 rounded-full bg-error/5 blur-3xl pointer-events-none"></div>
+    
+    <div class="w-16 h-16 rounded bg-error-container/30 border border-error flex items-center justify-center text-3xl mb-4">
+        ❌
+    </div>
+    
+    <h3 class="font-display font-semibold text-lg text-error">Pipeline Execution Halted</h3>
+    <p class="text-xs text-on-surface-variant mt-2 max-w-md leading-relaxed mx-auto">
+        The evaluation audit was terminated due to a processing error.
+    </p>
+
+    <!-- Detailed Error Info -->
+    <div class="mt-6 max-w-md w-full bg-surface-container-low border border-error/30 rounded p-4 text-left font-mono text-[11px] text-on-surface-variant leading-relaxed overflow-x-auto">
+        <span class="text-error font-bold">> [ERROR_LOG]</span><br>
+        {{ error_msg }}
+    </div>
+
+    <button onclick="document.getElementById('analysis-form').reset(); document.getElementById('results-panel').innerHTML = document.getElementById('results-placeholder-source').innerHTML" class="mt-8 bg-error hover:bg-error/90 text-on-error border border-transparent font-semibold rounded text-xs py-3 px-6 transition-colors">
+        Reset Input Console & Retry
+    </button>
+</div>

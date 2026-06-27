@@ -1,0 +1,50 @@
+<div class="border border-error bg-error-container/5 rounded p-8 flex flex-col items-center justify-center text-center my-auto min-h-[500px] relative overflow-hidden animate-fade-in font-body">
+    <!-- Pulsing warm overlays -->
+    <div class="absolute inset-0 bg-gradient-to-b from-error/5 to-transparent pointer-events-none"></div>
+    <div class="absolute -right-24 -top-24 w-52 h-52 rounded-full bg-error/5 blur-3xl pointer-events-none"></div>
+    
+    <!-- Large Warning Biohazard/Lock Icon -->
+    <div class="w-20 h-24 flex items-center justify-center relative mb-6">
+        <span class="absolute inline-flex h-full w-full rounded-full bg-error/10 opacity-75 animate-ping"></span>
+        <div class="w-16 h-16 rounded bg-error-container/30 border border-error text-error flex items-center justify-center text-4xl z-10 animate-pulse">
+            🚨
+        </div>
+    </div>
+
+    <h2 class="font-display font-bold text-2xl text-error tracking-tight">ETHICAL COMPLIANCE LOCKOUT</h2>
+    <p class="text-xs text-error font-bold tracking-widest uppercase mt-1">Halt: Corporate Malfeasance Detected</p>
+    
+    <div class="max-w-md mx-auto text-xs text-on-surface-variant mt-4 leading-relaxed">
+        The compliance parser identified <strong class="text-on-surface">{{ company_name }}</strong> as an active contributor to structural global harms. To maintain compliance standards, further analysis has been terminated.
+    </div>
+
+    <!-- Violation Details Terminal Box -->
+    <div class="mt-8 max-w-md w-full bg-surface-container-low border border-error/30 rounded p-5 text-left font-mono text-xs text-on-surface-variant leading-relaxed">
+        <div class="flex items-center gap-1.5 border-b border-error/10 pb-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+            <span class="text-[10px] uppercase font-bold text-error">Shield Lockout Logs</span>
+        </div>
+        <div class="space-y-1.5 text-[11px]">
+            <div><span class="text-error">> [LOCK]</span> Target Entity: <strong class="text-on-surface font-sans font-semibold">{{ company_name }}</strong></div>
+            {% if parent_company %}
+                <div><span class="text-error">> [LOCK]</span> Parent Group: <span class="text-on-surface-variant/80 font-sans">{{ parent_company }}</span></div>
+            {% endif %}
+            <div><span class="text-error">> [LOCK]</span> Fuzzy Database Match: <span class="text-error font-sans font-semibold">"{{ unethical_match }}"</span></div>
+            <div><span class="text-error">> [LOCK]</span> Forbidden Vector: <span class="text-error font-bold">[{{ category.replace('_', ' ') | uppercase }}]</span></div>
+            <div><span class="text-error">> [LOCK]</span> Action: <span class="text-error font-bold">PIPELINE CONTAINED (EXIT_CODE 403)</span></div>
+        </div>
+    </div>
+
+    <!-- Warnings / Lockout Footer -->
+    <div class="mt-8 flex flex-col sm:flex-row gap-3">
+        <button onclick="document.getElementById('analysis-form').reset(); document.getElementById('results-panel').innerHTML = document.getElementById('results-placeholder-source').innerHTML"
+                class="bg-error hover:bg-error/90 text-on-error border border-transparent font-semibold rounded text-xs py-3 px-6 transition-colors">
+            Reset Form & Flush Memory
+        </button>
+        <a href="https://career-shield-500702.appspot.com/compliance-info" target="_blank"
+           class="bg-surface-container-high hover:bg-surface-container-highest text-on-surface border border-outline-variant font-semibold rounded text-xs py-3 px-5 transition-colors flex items-center justify-center gap-1">
+            <span>Read Compliance Policy</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </a>
+    </div>
+</div>
