@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HORUS VISION | Elite Career Intelligence Ledger</title>
+    <title>HORUS VISION | Career Intelligence</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
@@ -56,7 +57,9 @@
     <!-- Google Fonts & Material Symbols -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
     <!-- HTMX CDN -->
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <!-- Interactivity and client-side Gemini Nano script -->
@@ -65,29 +68,48 @@
         html {
             font-size: 18px;
         }
-        .text-\[10px\] { font-size: 12px !important; }
-        .text-\[11px\] { font-size: 13px !important; }
-        .text-\[9px\] { font-size: 11px !important; }
-        .text-\[8px\] { font-size: 10px !important; }
+
+        .text-\[10px\] {
+            font-size: 12px !important;
+        }
+
+        .text-\[11px\] {
+            font-size: 13px !important;
+        }
+
+        .text-\[9px\] {
+            font-size: 11px !important;
+        }
+
+        .text-\[8px\] {
+            font-size: 10px !important;
+        }
 
         .custom-dashed-border {
             background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23d0c5af' stroke-width='1.5' stroke-dasharray='6%2c 6' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
         }
+
         .custom-dashed-border:hover {
             background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23735c00' stroke-width='1.5' stroke-dasharray='6%2c 6' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
         }
+
         /* Hide scrollbar for Chrome, Safari and Opera */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
+
         /* Hide scrollbar for IE, Edge and Firefox */
         .no-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
         }
+
         .gold-underline {
             position: relative;
         }
+
         .gold-underline::after {
             content: '';
             position: absolute;
@@ -98,46 +120,72 @@
             background-color: #735c00;
             transition: width 0.4s ease-in-out;
         }
+
         .gold-underline:hover::after {
             width: 100%;
         }
+
         @keyframes scan {
-            0% { top: 0%; opacity: 0.05; }
-            50% { opacity: 0.4; }
-            100% { top: 100%; opacity: 0.05; }
+            0% {
+                top: 0%;
+                opacity: 0.05;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+
+            100% {
+                top: 100%;
+                opacity: 0.05;
+            }
         }
+
         .scanner-line {
             animation: scan 3s linear infinite;
         }
     </style>
 </head>
-<body class="bg-background text-on-surface font-body-md min-h-screen selection:bg-primary-container/40 selection:text-on-primary-container">
+
+<body
+    class="bg-background text-on-surface font-body-md min-h-screen selection:bg-primary-container/40 selection:text-on-primary-container">
     <!-- Tactile Paper Grid Texture / Faint Atmosphere Background -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none z-0 opacity-40">
-        <div class="absolute inset-0" style="background-image: radial-gradient(circle, rgba(115, 92, 0, 0.03) 1px, transparent 1px); background-size: 24px 24px;"></div>
+        <div class="absolute inset-0"
+            style="background-image: radial-gradient(circle, rgba(115, 92, 0, 0.03) 1px, transparent 1px); background-size: 24px 24px;">
+        </div>
     </div>
 
     <!-- Layout Wrapper -->
     <div class="relative z-10 flex flex-col min-h-screen">
         <!-- Header -->
-        <header class="border-b border-outline-variant py-4 px-6 lg:px-8 bg-surface/90 backdrop-blur-md sticky top-0 z-50 transition-all">
+        <header
+            class="border-b border-outline-variant py-4 px-6 lg:px-8 bg-surface/90 backdrop-blur-md sticky top-0 z-50 transition-all">
             <div class="max-w-7xl mx-auto flex items-center justify-between">
                 <div class="flex items-center gap-4">
                     <!-- Eye of Horus Logo -->
                     <div class="flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" class="h-10 w-auto">
-                            <text x="0" y="70" font-family="Playfair Display, serif" font-size="44" font-weight="bold" fill="#1f1b13" letter-spacing="-0.03em">HORUS VISION</text>
-                            <path d="M350 30 Q370 50 350 70 Q330 50 350 30 Z" fill="none" stroke="#735c00" stroke-width="2.5"/>
-                            <circle cx="350" cy="50" r="6" fill="#735c00"/>
+                            <text x="0" y="70" font-family="Playfair Display, serif" font-size="44" font-weight="bold"
+                                fill="#1f1b13" letter-spacing="-0.03em">HORUS VISION</text>
+                            <path d="M350 30 Q370 50 350 70 Q330 50 350 30 Z" fill="none" stroke="#735c00"
+                                stroke-width="2.5" />
+                            <circle cx="350" cy="50" r="6" fill="#735c00" />
                         </svg>
                     </div>
                     <div class="border-l border-outline-variant pl-4 hidden sm:block">
-                        <p class="text-[10px] text-on-surface-variant font-label-caps tracking-widest uppercase">Elite Career Intelligence Ledger</p>
+                        <p class="text-[10px] text-on-surface-variant font-label-caps tracking-widest uppercase">Elite
+                            Career Intelligence Ledger</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
-                    <a href="https://github.com/saigou/careershield" target="_blank" class="text-on-surface-variant hover:text-on-surface transition-colors">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.457 1.087 3.056.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.646.64.699 1.026 1.592 1.026 2.683 0 3.842-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"/></svg>
+                    <a href="https://github.com/saigou/careershield" target="_blank"
+                        class="text-on-surface-variant hover:text-on-surface transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd"
+                                d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.457 1.087 3.056.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.646.64.699 1.026 1.592 1.026 2.683 0 3.842-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z"
+                                clip-rule="evenodd" />
+                        </svg>
                     </a>
                 </div>
             </div>
@@ -153,50 +201,56 @@
                         🕵️‍♂️ Corporate Ledger Audit
                     </h2>
                     <p class="font-body-md text-on-surface-variant text-sm mt-3 leading-relaxed">
-                        Are you being recruited, or are you signing up for pre-paid, unamortized burnout? Paste a job description or drop a contract document to instantly decode prepaid overtime clauses, calculate your actual un-eroded hourly wage, and execute live OSINT reputational grounding.
+                        Are you being recruited, or are you signing up for pre-paid, unamortized burnout? Paste a job
+                        description or drop a contract document to instantly decode prepaid overtime clauses, calculate
+                        your actual un-eroded hourly wage, and execute live OSINT reputational grounding.
                     </p>
                 </div>
 
                 <!-- Input Form Core -->
-                <form id="analysis-form"
-                      hx-post="/analyze"
-                      hx-target="#results-panel"
-                      hx-swap="innerHTML"
-                      hx-encoding="multipart/form-data"
-                      hx-indicator="#loading-indicator"
-                      class="bg-surface border border-outline rounded p-6 flex flex-col gap-6 relative transition-all">
+                <form id="analysis-form" hx-post="/analyze" hx-target="#results-panel" hx-swap="innerHTML"
+                    hx-encoding="multipart/form-data" hx-indicator="#loading-indicator"
+                    class="bg-surface border border-outline rounded p-6 flex flex-col gap-6 relative transition-all">
 
                     <!-- Client-Side Nano Scan Result Target -->
                     <div id="prescreen-banner" style="display: none;" class="transition-all duration-300"></div>
 
                     <!-- Input Method 1: Interactive pasting -->
                     <div class="flex flex-col gap-2">
-                        <label for="job_text" class="text-xs font-semibold text-on-surface font-label-caps tracking-wider uppercase flex items-center justify-between">
+                        <label for="job_text"
+                            class="text-xs font-semibold text-on-surface font-label-caps tracking-wider uppercase flex items-center justify-between">
                             <span>Job Description or Contract Text</span>
-                            <span class="text-[10px] text-primary lowercase font-normal italic">supports client pre-scanning</span>
+                            <span class="text-[10px] text-primary lowercase font-normal italic">supports client
+                                pre-scanning</span>
                         </label>
                         <div class="relative transition-all">
-                            <textarea id="job_text" name="job_text" rows="8" 
-                                      class="w-full bg-transparent text-on-surface text-sm border-0 border-b border-outline-variant focus:border-primary focus:ring-0 placeholder-on-surface-variant/40 font-body-md resize-none transition-all no-scrollbar py-2"
-                                      placeholder="Paste the full job posting, email offer, or contract details here..."></textarea>
+                            <textarea id="job_text" name="job_text" rows="8"
+                                class="w-full bg-transparent text-on-surface text-sm border-0 border-b border-outline-variant focus:border-primary focus:ring-0 placeholder-on-surface-variant/40 font-body-md resize-none transition-all no-scrollbar py-2"
+                                placeholder="Paste the full job posting, email offer, or contract details here..."></textarea>
                         </div>
                     </div>
 
                     <!-- Divider OR -->
                     <div class="relative flex py-1 items-center">
                         <div class="flex-grow border-t border-outline-variant/40"></div>
-                        <span class="flex-shrink mx-4 text-[10px] font-bold text-on-surface-variant/50 font-label-caps tracking-widest">OR</span>
+                        <span
+                            class="flex-shrink mx-4 text-[10px] font-bold text-on-surface-variant/50 font-label-caps tracking-widest">OR</span>
                         <div class="flex-grow border-t border-outline-variant/40"></div>
                     </div>
 
                     <!-- Input Method 2: Drag & Drop File Upload -->
                     <div class="flex flex-col gap-2">
-                        <label class="text-xs font-semibold text-on-surface font-label-caps tracking-wider uppercase">Upload Job Document (PDF, Image, Text)</label>
-                        <div id="drop-zone" class="custom-dashed-border rounded p-6 flex flex-col items-center justify-center gap-3 cursor-pointer bg-white/10 hover:bg-white/40 transition-all duration-300 group">
-                            <input type="file" id="job_file" name="job_file" accept=".pdf,.png,.jpg,.jpeg,.txt" class="hidden">
-                            
+                        <label
+                            class="text-xs font-semibold text-on-surface font-label-caps tracking-wider uppercase">Upload
+                            Job Document (PDF, Image, Text)</label>
+                        <div id="drop-zone"
+                            class="custom-dashed-border rounded p-6 flex flex-col items-center justify-center gap-3 cursor-pointer bg-white/10 hover:bg-white/40 transition-all duration-300 group">
+                            <input type="file" id="job_file" name="job_file" accept=".pdf,.png,.jpg,.jpeg,.txt"
+                                class="hidden">
+
                             <!-- File Icon / Graphic -->
-                            <div class="w-12 h-12 rounded border border-outline-variant flex items-center justify-center text-primary group-hover:scale-105 transition-all">
+                            <div
+                                class="w-12 h-12 rounded border border-outline-variant flex items-center justify-center text-primary group-hover:scale-105 transition-all">
                                 <span class="material-symbols-outlined text-2xl font-light">upload_file</span>
                             </div>
                             <span class="text-xs font-semibold text-on-surface mt-1" id="upload-status-text">
@@ -207,9 +261,11 @@
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="w-full bg-on-surface text-surface border border-transparent hover:bg-surface hover:text-on-surface hover:border-primary font-label-caps tracking-widest text-xs py-4 px-6 rounded transition-all duration-300 flex items-center justify-center gap-2 group mt-2">
+                    <button type="submit"
+                        class="w-full bg-on-surface text-surface border border-transparent hover:bg-surface hover:text-on-surface hover:border-primary font-label-caps tracking-widest text-xs py-4 px-6 rounded transition-all duration-300 flex items-center justify-center gap-2 group mt-2">
                         <span>Analyze Job</span>
-                        <span class="material-symbols-outlined text-sm font-light group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        <span
+                            class="material-symbols-outlined text-sm font-light group-hover:translate-x-1 transition-transform">arrow_forward</span>
                     </button>
                 </form>
             </section>
@@ -219,63 +275,83 @@
                 <!-- Results Target Panel -->
                 <div id="results-panel" class="w-full h-full flex flex-col">
                     <!-- Default State Placeholder -->
-                    <div class="border border-outline-variant bg-surface-container-low rounded p-8 flex flex-col items-center justify-center text-center my-auto min-h-[500px] relative overflow-hidden group">
-                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5 pointer-events-none"></div>
-                        <div class="w-16 h-16 rounded border border-outline-variant flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform duration-300 bg-surface">
+                    <div
+                        class="border border-outline-variant bg-surface-container-low rounded p-8 flex flex-col items-center justify-center text-center my-auto min-h-[500px] relative overflow-hidden group">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5 pointer-events-none">
+                        </div>
+                        <div
+                            class="w-16 h-16 rounded border border-outline-variant flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform duration-300 bg-surface">
                             👁️‍_
                         </div>
                         <h3 class="font-display font-semibold text-lg text-on-surface">Awaiting Offer Ingestion</h3>
                         <p class="text-xs text-on-surface-variant mt-2 max-w-sm leading-relaxed mx-auto font-body">
-                            Submit a job listing or contract using the console. The system will trigger multi-modal data extraction, ethical policy scans, asymmetric calculations, and OSINT threat searches.
+                            Submit a job listing or contract using the console. The system will trigger multi-modal data
+                            extraction, ethical policy scans, asymmetric calculations, and OSINT threat searches.
                         </p>
-                        
+
                         <!-- Mini Checklist Graphic -->
-                        <div class="mt-8 grid grid-cols-2 gap-3 max-w-md text-left text-[11px] text-on-surface-variant/80 font-body">
+                        <div
+                            class="mt-8 grid grid-cols-2 gap-3 max-w-md text-left text-[11px] text-on-surface-variant/80 font-body">
                             <div class="flex items-center gap-2">
-                                <span class="text-primary font-bold">✓</span> <span>Stage 1: Multi-modal Extraction</span>
+                                <span class="text-primary font-bold">✓</span> <span>Stage 1: Multi-modal
+                                    Extraction</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <span class="text-primary font-bold">✓</span> <span>Stage 2: Pattern Red Flag scan</span>
+                                <span class="text-primary font-bold">✓</span> <span>Stage 2: Pattern Red Flag
+                                    scan</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <span class="text-primary font-bold">✓</span> <span>Stage 3: Fuzzy Ethical Lockout</span>
+                                <span class="text-primary font-bold">✓</span> <span>Stage 3: Fuzzy Ethical
+                                    Lockout</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <span class="text-primary font-bold">✓</span> <span>Stage 4: Google Grounded OSINT</span>
+                                <span class="text-primary font-bold">✓</span> <span>Stage 4: Google Grounded
+                                    OSINT</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="text-primary font-bold">✓</span> <span>Stage 5: Non-LLM Math Engine</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <span class="text-primary font-bold">✓</span> <span>Stage 6: Multi-agent Report Synthesis</span>
+                                <span class="text-primary font-bold">✓</span> <span>Stage 6: Multi-agent Report
+                                    Synthesis</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Custom High-Tech Loading Sequence Indicator (Hidden by default, shown by HTMX) -->
-                <div id="loading-indicator" class="htmx-indicator w-full h-full flex flex-col items-center justify-center text-center my-auto min-h-[500px] border border-outline bg-surface/95 backdrop-blur-md rounded p-8 relative overflow-hidden">
+                <div id="loading-indicator"
+                    class="htmx-indicator w-full h-full flex flex-col items-center justify-center text-center my-auto min-h-[500px] border border-outline bg-surface/95 backdrop-blur-md rounded p-8 relative overflow-hidden">
                     <!-- Laser Scanner Line -->
                     <div class="absolute inset-x-0 h-[2px] bg-primary/40 scanner-line"></div>
-                    
+
                     <div class="relative w-24 h-24 flex items-center justify-center mb-6">
                         <!-- Dual Pulsing Rings -->
-                        <span class="absolute inline-flex h-full w-full rounded-full bg-primary/10 opacity-75 animate-ping"></span>
-                        <span class="absolute inline-flex h-16 w-16 rounded-full bg-primary-container/30 opacity-75 animate-pulse"></span>
-                        <div class="w-12 h-12 rounded bg-primary flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                        <span
+                            class="absolute inline-flex h-full w-full rounded-full bg-primary/10 opacity-75 animate-ping"></span>
+                        <span
+                            class="absolute inline-flex h-16 w-16 rounded-full bg-primary-container/30 opacity-75 animate-pulse"></span>
+                        <div
+                            class="w-12 h-12 rounded bg-primary flex items-center justify-center text-white text-xl font-bold shadow-lg">
                             👁️‍_
                         </div>
                     </div>
 
-                    <h3 class="font-display font-semibold text-lg text-on-surface mb-1">Activating Analysis Pipeline</h3>
-                    <div class="text-xs text-primary font-medium tracking-widest uppercase mb-4 font-body" id="loading-sub">Initiating agents...</div>
-                    
+                    <h3 class="font-display font-semibold text-lg text-on-surface mb-1">Activating Analysis Pipeline
+                    </h3>
+                    <div class="text-xs text-primary font-medium tracking-widest uppercase mb-4 font-body"
+                        id="loading-sub">Initiating agents...</div>
+
                     <!-- Dynamic Logging Sequence Simulator -->
-                    <div class="w-72 max-w-full bg-surface-container-low rounded p-3 border border-outline-variant text-left font-mono text-[10px] text-on-surface-variant leading-relaxed overflow-hidden h-28 relative">
-                        <div class="absolute bottom-3 left-3 right-3 flex flex-col gap-1 text-on-surface" id="loading-logs">
+                    <div
+                        class="w-72 max-w-full bg-surface-container-low rounded p-3 border border-outline-variant text-left font-mono text-[10px] text-on-surface-variant leading-relaxed overflow-hidden h-28 relative">
+                        <div class="absolute bottom-3 left-3 right-3 flex flex-col gap-1 text-on-surface"
+                            id="loading-logs">
                             <div class="text-on-surface-variant/60">> [SYS] Initializing multi-agent framework...</div>
                             <div class="text-primary">> [SYS] Fetching Stage 1: Multimodal Extractor...</div>
-                            <div class="text-green-700 animate-pulse">> [AGENT-1] Gemini 3.5 Flash online. Ingesting bytes...</div>
+                            <div class="text-green-700 animate-pulse">> [AGENT-1] Gemini 3.5 Flash online. Ingesting
+                                bytes...</div>
                         </div>
                     </div>
 
@@ -313,7 +389,7 @@
                                 const item = logs[current];
                                 logsContainer.innerHTML += `<div class="${item.c}">${item.t}</div>`;
                                 logsContainer.parentElement.scrollTop = logsContainer.parentElement.scrollHeight;
-                                
+
                                 // Update descriptive subheader
                                 if (current < 5) subText.innerText = "Extracting structured data...";
                                 else if (current < 8) subText.innerText = "Analyzing Red Flags & Ethical status...";
@@ -339,9 +415,11 @@
         </main>
 
         <!-- Footer -->
-        <footer class="border-t border-outline-variant/60 py-4 px-6 text-center text-[10px] text-on-surface-variant/60 font-body">
+        <footer
+            class="border-t border-outline-variant/60 py-4 px-6 text-center text-[10px] text-on-surface-variant/60 font-body">
             <div class="max-w-7xl mx-auto">
-                Horus Vision is an elite autonomous agent project for corporate analysis. All calculations verified with non-probabilistic math. Powered by Gemini 3.5 Flash & Google Antigravity.
+                Horus Vision is an elite autonomous agent project for corporate analysis. All calculations verified with
+                non-probabilistic math. Powered by Gemini 3.5 Flash & Google Antigravity.
             </div>
         </footer>
     </div>
@@ -398,4 +476,5 @@
         });
     </script>
 </body>
+
 </html>
