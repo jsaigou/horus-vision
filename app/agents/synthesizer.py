@@ -69,6 +69,12 @@ async def synthesize_report(pipeline_data_dict: dict) -> SynthesisReport:
         if "no salary" not in report.wage_narrative.lower():
             report.wage_narrative += " Note: No salary information was provided in the original job description. Stated salary is an online-searched market rate estimation."
 
+    # Post-processing: Ethical lockout validation
+    if pipeline_data_dict.get("ethical_status") == "LOCKOUT":
+        summary_lower = report.summary.lower()
+        if "ethical" not in summary_lower and "lockout" not in summary_lower and "objection" not in summary_lower:
+            report.summary += " This role is flagged with an Ethical Compliance Lockout due to association with restricted sectors/activities."
+
     # Post-processing: OSINT uncertainty validation
     # If all findings are LOW confidence, ensure narrative mentions data was insufficient
     findings = pipeline_data_dict.get("osint_findings", [])

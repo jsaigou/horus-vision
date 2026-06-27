@@ -109,19 +109,6 @@ async def analyze_job(
         extracted.parent_company
     )
 
-    if ethical_status == "LOCKOUT":
-        # HALT. Return red lockout response. Pipeline stops here.
-        return templates.TemplateResponse(
-            request=request,
-            name="lockout.html",
-            context={
-                "company_name": extracted.company_name or "Unknown Company",
-                "parent_company": extracted.parent_company,
-                "category": eth_category,
-                "unethical_match": eth_entity
-            }
-        )
-
     # 4. Stage 2: Forensic Text Analyzer (pattern matching + Gemini 3.5 Flash)
     forensic_flags = await analyze_forensic_patterns(extracted)
     triggered_flags = [f for f in forensic_flags if f.triggered]
@@ -258,18 +245,6 @@ async def analyze_job_with_extracted(request: Request, extracted: JobExtraction,
         extracted.company_name,
         extracted.parent_company
     )
-
-    if ethical_status == "LOCKOUT":
-        return templates.TemplateResponse(
-            request=request,
-            name="lockout.html",
-            context={
-                "company_name": extracted.company_name or "Unknown Company",
-                "parent_company": extracted.parent_company,
-                "category": eth_category,
-                "unethical_match": eth_entity
-            }
-        )
 
     forensic_flags = await analyze_forensic_patterns(extracted)
     triggered_flags = [f for f in forensic_flags if f.triggered]
