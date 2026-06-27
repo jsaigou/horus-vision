@@ -1,6 +1,9 @@
-# 🛡️ CareerShield
+# 👁️ Horus Vision
 
-**CareerShield** is a premium, high-fidelity corporate forensic auditing web application. It parses job listings (pasted text or uploaded files) and analyzes the true cost of employment, including effective hourly wage erosion, daily remaining discretionary life, forensic "corporate-speak" patterns, and ethical reputations.
+**Horus Vision** is an elite, high-fidelity career intelligence ledger designed to conduct a comprehensive reality check on job listings and contracts.
+
+### 🌟 What is Horus?
+In Egyptian mythology, the **Eye of Horus** is a powerful symbol of clear perception, royal protection, and absolute truth. Inspired by this "all-seeing" lens, **Horus Vision** cuts through the corporate smoke and mirrors of modern job descriptions and contracts. It empowers job seekers with total transparency—exposing hidden overtime, calculating true hourly wage erosion, forecasting discretionary life margins, and scanning corporate reputations. It gives you the "all-seeing" clarity to know exactly what you are *actually* signing up for.
 
 It is built with **FastAPI**, **Jinja2**, **HTMX**, **TailwindCSS (via CDN)**, and powered by **Gemini 3.5 Flash** (using the `google-genai` SDK) and client-side **Gemini Nano** (`window.ai`).
 
@@ -70,7 +73,7 @@ pytest tests/
 
 ## 🚀 Deploying to Google Cloud Run
 
-CareerShield is pre-configured for deployment to your Google Cloud project `career-shield-500702` using the included Dockerfile (which dynamically handles Cloud Run's `$PORT` binding).
+Horus Vision is pre-configured for deployment to your Google Cloud project `career-shield-500702` using the included Dockerfile (which dynamically handles Cloud Run's `$PORT` binding).
 
 ### Steps to Deploy:
 
@@ -83,7 +86,7 @@ CareerShield is pre-configured for deployment to your Google Cloud project `care
 2. **Deploy directly with Cloud Run**
    Run the single-command build and deploy script. Note that you must pass your `GEMINI_API_KEY` as an environment variable to the container:
    ```bash
-   gcloud run deploy careershield \
+   gcloud run deploy horus-vision \
      --source . \
      --region us-central1 \
      --allow-unauthenticated \
