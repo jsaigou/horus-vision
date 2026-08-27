@@ -4,7 +4,7 @@
 
 **Horus Vision** is a career intelligence experiment designed to conduct a comprehensive reality check on job listings and contracts.
 
-This was built for a Gemini AI Hackathon based in Tokyo.   It was more an exercise on how to use Google AI tools.  It mostly works, but is horribly inefficient with tokens.  AI Agents are shoehorned into something that could have and should have been done with relatively simple python, firecrawl and database. A refined version is in developement.  I will make that public in a few weeks.
+This was built for a Gemini AI Hackathon based in Tokyo.   It was more an exercise on how to use Google AI tools.  It mostly works, but is horribly inefficient with tokens.  AI Agents are shoehorned into something that could have and should have been done with relatively simple python, firecrawl and database. I might revisit this.
 
 ### 🌟 What is Horus?
 In Egyptian mythology, the **Eye of Horus** is a powerful symbol of clear perception, royal protection, and absolute truth. 
